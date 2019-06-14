@@ -4,19 +4,16 @@ const NavBarLink = ({ children, href, activeLink, className }) => {
     return (
         <>
             <Link href={href}>
-                <a className={`${className ? className : ''} ${activeLink === href ? 'active' : ''}`}>
+                <a active={activeLink === href} className={`${className ? className : ''}`}>
                     {children}
                 </a>
             </Link>
             <style jsx>{`
                 a {
-                    color: rgba(0,0,0,.5);
+                    color: ${activeLink === href ? 'rgba(0,0,0,.9)' : 'rgba(0,0,0,.5)'};
                     text-decoration: none;
                     background-color: transparent;
                     cursor: pointer;
-                }
-                .active {
-                    color: rgba(0,0,0,.9);
                 }
             `}</style>
         </>
