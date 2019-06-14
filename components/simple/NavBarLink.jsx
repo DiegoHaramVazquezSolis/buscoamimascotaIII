@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-const NavBarLink = ({ children, href, as, active, className }) => {
+const NavBarLink = ({ children, href, activeLink, className }) => {
     return (
         <>
             <Link href={href}>
-                <a className={`${className ? className : ''} ${active ? 'active' : ''}`}>
+                <a className={`${className ? className : ''} ${activeLink === href ? 'active' : ''}`}>
                     {children}
                 </a>
             </Link>
