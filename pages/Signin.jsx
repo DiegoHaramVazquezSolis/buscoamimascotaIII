@@ -199,10 +199,4 @@ const Signin = ({ pathname }) => {
     );
 }
 
-Signin.getInitialProps = ({ pathname }) => {
-    return {
-        pathname
-    };
-}
-
 export default Signin;

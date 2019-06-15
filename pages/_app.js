@@ -19,11 +19,11 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props
-
+    const pathname = this.props.router.route;
     return (
       <Container>
         <Layout>
-          <Component {...pageProps} user={this.state.user} />
+          <Component {...pageProps} user={this.state.user} pathname={pathname} />
         </Layout>
       </Container>
     )
