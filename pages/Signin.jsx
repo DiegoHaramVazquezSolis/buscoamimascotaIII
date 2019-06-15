@@ -14,7 +14,7 @@ import Body1 from '../components/styled/Body/Body1';
 import TextForButtons from '../components/styled/TextForButtons';
 import InputField from '../components/simple/InputField';
 import FacebookLoginButton from '../components/simple/FacebookLoginButton';
-import { createUserWithEmailAndPassword, updateUserProfileData } from '../firebase/auth';
+import { createUserWithEmailAndPassword, updateUserProfileData, signInUserWithFacebook } from '../firebase/auth';
 import { createUserProfile } from '../firebase/database';
 
 const Signin = ({ pathname }) => {
@@ -79,7 +79,31 @@ const Signin = ({ pathname }) => {
             case 'auth/weak-password':
                 setState({ error: 'La contraseña debe tener al menos seis caracteres de longitud' });
                 break;
+            case 'auth/user-cancelled':
+                setState({ error: 'Para acceder con facebook es necesario que Busco a mi mascota reciba permiso de tu cuenta' });
+                break;
+            case 'auth/popup-closed-by-user':
+                setState({ error: 'Para acceder con facebook es necesario que Busco a mi mascota reciba permiso de tu cuenta' });
+                break;
         }
+    }
+
+    function signInWithFacebook() {
+        setState({ error: '' });
+        signInUserWithFacebook()
+        .then((user) => {
+            const uid = user.user.uid;
+            const userProfile = {
+                name: user.user.displayName,
+                email: user.user.email,
+                fbToken: user.credential.accessToken,
+                photo: user.user.photoURL
+            };
+            createUserProfile(uid, userProfile);
+        })
+        .catch((error) => {
+            determineErrorAndShowToUser(error.code);
+        });
     }
 
     return (
@@ -165,11 +189,11 @@ const Signin = ({ pathname }) => {
                             {error}
                         </Alert>
                     }
-                    <hr className='mt-4' />
-                    <div className='d-flex justify-content-center'>
-                        <FacebookLoginButton className='mt-2' />
-                    </div>
                 </Form>
+                <hr className='mt-4' />
+                <div className='d-flex justify-content-center'>
+                    <FacebookLoginButton className='mt-2' onClick={signInWithFacebook} />
+                </div>
             </Container>
         </>
     );
