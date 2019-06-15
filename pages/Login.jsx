@@ -14,7 +14,7 @@ import Body1 from '../components/styled/Body/Body1';
 import TextForButtons from '../components/styled/TextForButtons';
 import InputField from '../components/simple/InputField';
 import FacebookLoginButton from '../components/simple/FacebookLoginButton';
-import { logInWithEmailAndPassword } from '../firebase/auth';
+import { logInWithEmailAndPassword, signInUserWithFacebook } from '../firebase/auth';
 
 const Login = ({ pathname }) => {
     const state = {
@@ -39,7 +39,48 @@ const Login = ({ pathname }) => {
 
     function onSubmit(e) {
         e.preventDefault();
-        logInWithEmailAndPassword(email, password);
+        logInWithEmailAndPassword(email, password)
+        .catch((error) => {
+            determineErrorAndShowToUser(error.code);
+        });
+    }
+
+    function determineErrorAndShowToUser(errorCode) {
+        switch(errorCode) {
+            case 'auth/user-not-found':
+                setState({ error: 'No existe un usuario registrado con esa direccion de correo' });
+                break;
+            case 'auth/invalid-email':
+                setState({ error: 'La direccion de correo proporcionada no es valida' });
+                break;
+            case 'auth/wrong-password':
+                setState({ error: 'Contraseña incorrecta' });
+                break;
+            case 'auth/user-cancelled':
+                setState({ error: 'Para acceder con facebook es necesario que Busco a mi mascota reciba permiso de tu cuenta' });
+                break;
+            case 'auth/popup-closed-by-user':
+                setState({ error: 'Para acceder con facebook es necesario que Busco a mi mascota reciba permiso de tu cuenta' });
+                break;
+        }
+    }
+
+    function signInWithFacebook() {
+        setState({ error: '' });
+        signInUserWithFacebook()
+        .then((user) => {
+            const uid = user.user.uid;
+            const userProfile = {
+                name: user.user.displayName,
+                email: user.user.email,
+                fbToken: user.credential.accessToken,
+                photo: user.user.photoURL
+            };
+            createUserProfile(uid, userProfile);
+        })
+        .catch((error) => {
+            determineErrorAndShowToUser(error.code);
+        });
     }
 
     return (
@@ -94,10 +135,15 @@ const Login = ({ pathname }) => {
                             </TextForButtons>
                         </Button>
                     </ButtonToolbar>
+                    {error !== '' &&
+                        <Alert variant='info' className='mt-3'>
+                            {error}
+                        </Alert>
+                    }
                 </Form>
                 <hr className='mt-4' />
                 <div className='d-flex justify-content-center'>
-                    <FacebookLoginButton className='mt-2' />
+                    <FacebookLoginButton className='mt-2' onClick={signInWithFacebook} />
                 </div>
             </Container>
         </>
