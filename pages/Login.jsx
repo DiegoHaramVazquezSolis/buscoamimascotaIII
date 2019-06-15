@@ -39,6 +39,7 @@ const Login = ({ pathname }) => {
 
     function onSubmit(e) {
         e.preventDefault();
+        setState({ error: '' });
         logInWithEmailAndPassword(email, password)
         .catch((error) => {
             determineErrorAndShowToUser(error.code);
