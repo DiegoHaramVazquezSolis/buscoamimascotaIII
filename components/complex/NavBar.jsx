@@ -7,7 +7,7 @@ import Body1 from '../styled/Body/Body1';
 
 const NavBar = ({ pathname }) => {
     return (
-        <Navbar bg='light' expand='lg' className='shadow-sm pb-3'>
+        <Navbar bg='light' expand='lg' className='shadow-sm pb-3 mb-4'>
             <Navbar.Brand href='#home' className='pl-2 pr-2 pt-2'>Busco a mi mascota</Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
