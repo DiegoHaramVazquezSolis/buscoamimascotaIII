@@ -5,13 +5,33 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import { useReducer } from 'react';
 import NavBar from '../components/complex/NavBar';
 import H4Styled from '../components/styled/Headline/H4Styled';
 import Subtitle1 from '../components/styled/Subtitle/Subtitle1';
 import Body1 from '../components/styled/Body/Body1';
 import TextForButtons from '../components/styled/TextForButtons';
+import InputField from '../components/simple/InputField';
 
 const Signin = ({ pathname }) => {
+    const state = {
+        name: '',
+        email: '',
+        password: '',
+        verify: '',
+        error:  ''
+    };
+
+    const reducer = (prevState, state) => {
+        return { ...prevState, ...state };
+    }
+
+    const [ { name, email, password, verify, error }, setState ] = useReducer(reducer, state);
+
+    function onChange (e) {
+        setState({ [e.target.name]: e.target.value });
+    }
+
     return (
         <>
             <Head>
@@ -31,9 +51,12 @@ const Signin = ({ pathname }) => {
                                     Nombre completo
                                 </Body1>
                             </Form.Label>
-                            <Form.Control type='text'
+                            <InputField type='text'
                                 className='family-open-sans'
-                                placeholder='Nombre' />
+                                placeholder='Nombre'
+                                name='name'
+                                value={name}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
                             <Form.Label>
@@ -41,9 +64,12 @@ const Signin = ({ pathname }) => {
                                     Email
                                 </Body1>
                             </Form.Label>
-                            <Form.Control type='email'
+                            <InputField type='email'
                                 className='family-open-sans'
-                                placeholder='Correo electronico' />
+                                placeholder='Correo electronico'
+                                name='email'
+                                value={email}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
                             <Form.Label>
@@ -51,9 +77,12 @@ const Signin = ({ pathname }) => {
                                     Contraseña
                                 </Body1>
                             </Form.Label>
-                            <Form.Control type='password'
+                            <InputField type='password'
                                 className='family-open-sans'
-                                placeholder='Contraseña' />
+                                placeholder='Contraseña'
+                                name='password'
+                                value={password}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
                             <Form.Label>
@@ -61,18 +90,21 @@ const Signin = ({ pathname }) => {
                                     Verificar
                                 </Body1>
                             </Form.Label>
-                            <Form.Control type='password'
+                            <InputField type='password'
                                 className='family-open-sans'
-                                placeholder='Verificar contraseña' />
+                                placeholder='Verificar contraseña'
+                                name='verify'
+                                value={verify}
+                                onChange={onChange} />
                         </Col>
                     </Row>
                     <ButtonToolbar className='d-flex justify-content-end'>
-                        <Button className='outlined-button mt-3 mr-2' variant='none'>
+                        <Button className='outlined-button mt-3 mr-2' variant='none' type='reset'>
                             <TextForButtons className='pl-2 pr-2'>
                                 Limpiar
                             </TextForButtons>
                         </Button>
-                        <Button className='raised-button mt-3 mr-2' variant='none'>
+                        <Button className='raised-button mt-3 mr-2' variant='none' type='submit'>
                             <TextForButtons className='pl-2 pr-2'>
                                 Continuar
                             </TextForButtons>
