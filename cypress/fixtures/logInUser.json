@@ -1,0 +1,18 @@
+{
+    "correctUser": {
+        "email": "diego@qapla.mx",
+        "password": "123456"
+    },
+    "invalidEmailUser": {
+        "email": "diego@qapla",
+        "password": "123456"
+    },
+    "notExistingUser": {
+        "email": "diego@qapla.jx",
+        "password": "123456"
+    },
+    "incorrectPasswordUser": {
+        "email": "diego@qapla.mx",
+        "password": "12345"
+    }
+}
