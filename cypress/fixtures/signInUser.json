@@ -1,0 +1,32 @@
+{
+    "userWithCorrectData": {
+        "name": "Usuario de cypress",
+        "email": "cypress@test.com",
+        "password": "123456",
+        "verify": "123456"
+    },
+    "userWithEmailError": {
+        "name": "Usuario de cypress",
+        "email": "cypress@test",
+        "password": "123456",
+        "verify": "123456"
+    },
+    "userWithUsedEmailError": {
+        "name": "Usuario de cypress",
+        "email": "cypress@test.com",
+        "password": "123456",
+        "verify": "123456"
+    },
+    "userWithPasswordError": {
+        "name": "Usuario de cypress",
+        "email": "cypress@test.com",
+        "password": "12345",
+        "verify": "12345"
+    },
+    "userWithVerifyError": {
+        "name": "Usuario de cypress",
+        "email": "cypress@test.com",
+        "password": "12345",
+        "verify": "123456"
+    }
+}
