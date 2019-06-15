@@ -6,6 +6,6 @@ import { database } from "./firebase";
  * @param {object} userProfile JSON object with the user information
  * @example createUseRecord(user.user.uid, { name: Diego })
  */
-export function createUserProfile(uid, userProfile) {
-    database.child('Users').child(uid).set(userProfile);
+export async function createUserProfile(uid, userProfile) {
+    return await database.child('Users').child(uid).set(userProfile);
 }
