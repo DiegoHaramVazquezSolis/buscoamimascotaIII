@@ -4,7 +4,7 @@ const NavBarLink = ({ children, href, activeLink, className }) => {
     return (
         <>
             <Link href={href}>
-                <a active={activeLink === href} className={`${className ? className : ''}`}>
+                <a className={`${className ? className : ''}`}>
                     {children}
                 </a>
             </Link>
