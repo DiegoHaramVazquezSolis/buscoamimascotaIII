@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import { useReducer } from 'react';
 import NavBar from '../components/complex/NavBar';
 import H4Styled from '../components/styled/Headline/H4Styled';
 import Subtitle1 from '../components/styled/Subtitle/Subtitle1';
@@ -14,6 +15,22 @@ import InputField from '../components/simple/InputField';
 import FacebookLoginButton from '../components/simple/FacebookLoginButton';
 
 const Login = ({ pathname }) => {
+    const state = {
+        email: '',
+        password: '',
+        error: ''
+    };
+
+    function reducer(prevState, state) {
+        return { ...prevState, ...state };
+    }
+
+    const [ { email, password, error }, setState ] = useReducer(reducer, state);
+
+    function onChange (e) {
+        setState({ [e.target.name]: e.target.value });
+    }
+
     return (
         <>
             <Head>
@@ -36,7 +53,9 @@ const Login = ({ pathname }) => {
                             <InputField type='email'
                                 className='family-open-sans'
                                 placeholder='Correo electronico'
-                                name='email' />
+                                name='email'
+                                value={email}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
                             <Form.Label>
@@ -47,7 +66,9 @@ const Login = ({ pathname }) => {
                             <InputField type='password'
                                 className='family-open-sans'
                                 placeholder='Contraseña'
-                                name='password' />
+                                name='password'
+                                value={password}
+                                onChange={onChange} />
                         </Col>
                     </Row>
                     <ButtonToolbar className='d-flex justify-content-end'>
