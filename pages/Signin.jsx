@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import { useReducer } from 'react';
 import NavBar from '../components/complex/NavBar';
 import H4Styled from '../components/styled/Headline/H4Styled';
@@ -13,6 +14,8 @@ import Body1 from '../components/styled/Body/Body1';
 import TextForButtons from '../components/styled/TextForButtons';
 import InputField from '../components/simple/InputField';
 import FacebookLoginButton from '../components/simple/FacebookLoginButton';
+import { createUserWithEmailAndPassword, updateUserProfileData } from '../firebase/auth';
+import { createUserProfile } from '../firebase/database';
 
 const Signin = ({ pathname }) => {
     const state = {
@@ -37,6 +40,48 @@ const Signin = ({ pathname }) => {
         setState({ name: '', email: '', password: '', verify: '' });
     }
 
+    function onSubmit(e) {
+        e.preventDefault();
+        setState({ email: email.trim(), error: '' });
+        if (isPasswordEqualToVerify()) {
+            createUserWithEmailAndPassword(email, password)
+            .then((user) => {
+                updateUserProfileData({
+                    displayName: name
+                });
+                const uid = user.user.uid;
+                const userProfile = {
+                    name: name,
+                    email: email
+                };
+                createUserProfile(uid, userProfile);
+            })
+            .catch((error) => {
+                determineErrorAndShowToUser(error.code)
+            });
+        } else {
+            setState({ error: 'Las contraseñas no coinciden' });
+        }
+    }
+
+    function isPasswordEqualToVerify() {
+        return password === verify;
+    }
+
+    function determineErrorAndShowToUser(errorCode) {
+        switch(errorCode) {
+            case 'auth/email-already-in-use':
+                setState({ error: 'Esta direccion de correo ya esta en uso' });
+                break;
+            case 'auth/invalid-email':
+                setState({ error: 'La direccion de correo proporcionada no es valida' });
+                break;
+            case 'auth/weak-password':
+                setState({ error: 'La contraseña debe tener al menos seis caracteres de longitud' });
+                break;
+        }
+    }
+
     return (
         <>
             <Head>
@@ -48,7 +93,7 @@ const Signin = ({ pathname }) => {
                 <Subtitle1 className='text-muted mb-1'>
                     Esta información nos sirve para poder contactarte y trabajamos de forma activa por mantenerla siempre protegida.
                 </Subtitle1>
-                <Form>
+                <Form onSubmit={onSubmit}>
                     <Row>
                         <Col sm='12' md='6' className='mt-2'>
                             <Form.Label>
@@ -115,6 +160,11 @@ const Signin = ({ pathname }) => {
                             </TextForButtons>
                         </Button>
                     </ButtonToolbar>
+                    {error !== '' &&
+                        <Alert variant='info' className='mt-3'>
+                            {error}
+                        </Alert>
+                    }
                     <hr className='mt-4' />
                     <div className='d-flex justify-content-center'>
                         <FacebookLoginButton className='mt-2' />
