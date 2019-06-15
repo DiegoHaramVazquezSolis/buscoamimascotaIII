@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import { useReducer } from 'react';
 import NavBar from '../components/complex/NavBar';
 import H4Styled from '../components/styled/Headline/H4Styled';
@@ -29,6 +30,10 @@ const Login = ({ pathname }) => {
 
     function onChange (e) {
         setState({ [e.target.name]: e.target.value });
+    }
+
+    function resetForm() {
+        setState({ email: '', password: '' });
     }
 
     return (
@@ -72,7 +77,7 @@ const Login = ({ pathname }) => {
                         </Col>
                     </Row>
                     <ButtonToolbar className='d-flex justify-content-end'>
-                        <Button className='outlined-button mt-3 mr-2' variant='none' type='reset'>
+                        <Button className='outlined-button mt-3 mr-2' variant='none' type='reset' onClick={resetForm} >
                             <TextForButtons className='pl-2 pr-2'>
                                 Limpiar
                             </TextForButtons>
