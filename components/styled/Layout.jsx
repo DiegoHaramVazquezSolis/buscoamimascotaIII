@@ -14,17 +14,20 @@ const Layout = ({ children }) => {
                 .raised-button {
                     color: #FFF;
                     background: ${primaryColor};
-                    box-shadow: 0px 2px 4px rgba(${primaryColorRGB}, 0.25);
+                    box-shadow: 0px 2px 4px rgba(${primaryColorRGB}, 0.35);
                 }
                 .raised-button:hover {
                     color: #FFF;
                     background: rgba(${primaryColorRGB}, 0.9);
-                    box-shadow: 0px 4px 4px rgba(${primaryColorRGB}, 0.25);
+                    box-shadow: 0px 4px 4px rgba(${primaryColorRGB}, 0.35);
                 }
                 .raised-button:active {
                     color: #FFF;
                     background: ${primaryColor};
-                    box-shadow: 0px 2px 4px rgba(${primaryColorRGB}, 0.25);
+                    box-shadow: 0px 2px 4px rgba(${primaryColorRGB}, 0.35);
+                }
+                .raised-button:focus {
+                    box-shadow: 0px 2px 4px rgba(${primaryColorRGB}, 0.35);
                 }
                 .outlined-button {
                     background: transparent;
@@ -41,6 +44,9 @@ const Layout = ({ children }) => {
                     background: rgba(${primaryColorRGB}, 0.3) !important;
                     border: 2px solid ${primaryColor} !important;
                     color: ${primaryColor} !important;
+                    box-shadow: none;
+                }
+                .outlined-button:focus {
                     box-shadow: none;
                 }
             `}</style>
