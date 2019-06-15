@@ -14,6 +14,7 @@ import Body1 from '../components/styled/Body/Body1';
 import TextForButtons from '../components/styled/TextForButtons';
 import InputField from '../components/simple/InputField';
 import FacebookLoginButton from '../components/simple/FacebookLoginButton';
+import { logInWithEmailAndPassword } from '../firebase/auth';
 
 const Login = ({ pathname }) => {
     const state = {
@@ -36,6 +37,11 @@ const Login = ({ pathname }) => {
         setState({ email: '', password: '' });
     }
 
+    function onSubmit(e) {
+        e.preventDefault();
+        logInWithEmailAndPassword(email, password);
+    }
+
     return (
         <>
             <Head>
@@ -45,9 +51,9 @@ const Login = ({ pathname }) => {
             <Container>
                 <H4Styled>Iniciar sesión</H4Styled>
                 <Subtitle1 className='text-muted mb-1'>
-                    Nos encanta que visites de nuevo, ingresa tus datos para continuar.
+                    Nos encanta que nos visites de nuevo, ingresa tus datos para continuar.
                 </Subtitle1>
-                <Form className='align-middle'>
+                <Form className='align-middle' onSubmit={onSubmit} >
                     <Row>
                         <Col sm='12' md='6' className='mt-2'>
                             <Form.Label>
