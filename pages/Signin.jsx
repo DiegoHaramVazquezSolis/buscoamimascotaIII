@@ -113,7 +113,7 @@ const Signin = ({ pathname }) => {
             </Head>
             <NavBar pathname={pathname} />
             <Container>
-                <H4Styled>Iniciar sesion</H4Styled>
+                <H4Styled>Registrarse</H4Styled>
                 <Subtitle1 className='text-muted mb-1'>
                     Esta información nos sirve para poder contactarte y trabajamos de forma activa por mantenerla siempre protegida.
                 </Subtitle1>
