@@ -22,7 +22,10 @@ const TextForButtons = ({ children, className }) => {
 
 
 TextForButtons.propTypes = {
-    children: PropTypes.string.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+    ]),
     className: PropTypes.string
 };
 
