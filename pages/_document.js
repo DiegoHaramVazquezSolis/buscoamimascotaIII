@@ -12,6 +12,7 @@ class MyDocument extends Document {
                 <Head>
                     <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossOrigin='anonymous' />
                     <link href='https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans:300,400' rel='stylesheet' />
+                    <script src='https://kit.fontawesome.com/6edee5bac4.js'></script>
                 </Head>
                 <body>
                     <Main />
