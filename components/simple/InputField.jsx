@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 
-const InputField = ({ name, value, type, placeholder, className, onChange }) => (
+const InputField = ({ name, value, type, placeholder, required, className, onChange }) => (
     <input id={name}
         type={type}
         placeholder={placeholder}
+        required={required}
         className={`form-control ${className ? className : ''}`}
         name={name}
         value={value}
@@ -11,7 +12,8 @@ const InputField = ({ name, value, type, placeholder, className, onChange }) => 
 );
 
 InputField.defaultProps = {
-    type: 'text'
+    type: 'text',
+    required: true
 };
 
 InputField.propTypes = {
@@ -29,6 +31,7 @@ InputField.propTypes = {
         'tel'
     ]).isRequired,
     placeholder: PropTypes.string,
+    required: PropTypes.bool.isRequired,
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired
 };
