@@ -12,6 +12,7 @@ import Subtitle1 from '../components/styled/Subtitle/Subtitle1';
 import Body1 from '../components/styled/Body/Body1';
 import TextForButtons from '../components/styled/TextForButtons';
 import InputField from '../components/simple/InputField';
+import FacebookLoginButton from '../components/simple/FacebookLoginButton';
 
 const Signin = ({ pathname }) => {
     const state = {
@@ -30,6 +31,10 @@ const Signin = ({ pathname }) => {
 
     function onChange (e) {
         setState({ [e.target.name]: e.target.value });
+    }
+
+    function resetForm() {
+        setState({ name: '', email: '', password: '', verify: '' });
     }
 
     return (
@@ -99,7 +104,7 @@ const Signin = ({ pathname }) => {
                         </Col>
                     </Row>
                     <ButtonToolbar className='d-flex justify-content-end'>
-                        <Button className='outlined-button mt-3 mr-2' variant='none' type='reset'>
+                        <Button className='outlined-button mt-3 mr-2' variant='none' type='reset' onClick={resetForm}>
                             <TextForButtons className='pl-2 pr-2'>
                                 Limpiar
                             </TextForButtons>
@@ -110,6 +115,10 @@ const Signin = ({ pathname }) => {
                             </TextForButtons>
                         </Button>
                     </ButtonToolbar>
+                    <hr className='mt-4' />
+                    <div className='d-flex justify-content-center'>
+                        <FacebookLoginButton className='mt-2' />
+                    </div>
                 </Form>
             </Container>
         </>
