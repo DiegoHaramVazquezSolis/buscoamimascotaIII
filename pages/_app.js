@@ -5,12 +5,12 @@ import { auth } from '../firebase/firebase';
 
 class MyApp extends App {
   state = {
-    user: null
+    user: false
   };
   componentDidMount(){
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.setState({user: true});
+        this.setState({user: user});
       } else {
         this.setState({user: false});
       }

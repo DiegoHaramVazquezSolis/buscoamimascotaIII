@@ -49,6 +49,32 @@ const Layout = ({ children }) => {
                 .outlined-button:focus {
                     box-shadow: none;
                 }
+                .text-button {
+                    padding-right: 16px;
+                    padding-left: 16px;
+                    background: transparent;
+                    border-radius: 4px;
+                    box-shadow: none !important;
+                    color: ${primaryColor};
+                    transition: background 300ms ease-in-out;
+                }
+                .text-button:hover {
+                    background: rgba(${primaryColorRGB}, 0.1);
+                    box-shadow: none !important;
+                }
+                .text-button:active {
+                    background: rgba(${primaryColorRGB}, 0.2);
+                    box-shadow: none !important;
+                }
+                .text-button:focus {
+                    box-shadow: none;
+                    box-shadow: none !important;
+                }
+                .text-button.disabled {
+                    background: none;
+                    cursor: pointer;
+                    color: rgba(0, 0, 0, 0.4);
+                }
             `}</style>
         </div>
     )
