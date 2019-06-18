@@ -35,3 +35,10 @@ export async function updateUserProfileData(data) {
 export async function logInWithEmailAndPassword(email, password) {
     return await auth.signInWithEmailAndPassword(email, password);
 }
+
+/**
+ * Close the current user session
+ */
+export async function signOut() {
+    return await auth.signOut();
+}
