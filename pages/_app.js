@@ -5,7 +5,7 @@ import { auth } from '../firebase/firebase';
 
 class MyApp extends App {
   state = {
-    user: false
+    user: null
   };
   componentDidMount(){
     auth.onAuthStateChanged((user) => {
