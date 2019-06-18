@@ -43,6 +43,15 @@ const FieldLabel = ({ children }) => (
     </Form.Label>
 );
 
+const TextContactButton = ({ children, style, onClick }) => (
+    <Button className='text-button pt-0 pb-0 mr-1 ml-1 mt-2'
+        variant='none'
+        style={style}
+        onClick={onClick}>
+        {children}
+    </Button>
+);
+
 const Publicar = ({ pathname }) => {
     const state = {
         name: '',
@@ -203,30 +212,22 @@ const Publicar = ({ pathname }) => {
                                                 </FieldLabel>
                                             </Col>
                                             <Col className='d-flex justify-content-center mb-2 mt-2' sm={12} md={5}>
-                                                <Button className='text-button pt-0 pb-0 mr-1 ml-1 mt-2'
-                                                    variant='none'
-                                                    style={{ backgroundColor: contactNode.type==='whatsapp' && `rgba(${primaryColorRGB}, .3)` }}
+                                                <TextContactButton style={{ backgroundColor: contactNode.type==='whatsapp' && `rgba(${primaryColorRGB}, .3)` }}
                                                     onClick={() => {var contactCopy = contact; contactCopy[index].type = 'whatsapp'; contactCopy[index].lock = false; setState({ contact: contactCopy });}}>
                                                     <i style={{ color: '#25D366' }}className={`fab m-2 fa-lg fa-whatsapp whatsapp-${index}`}></i>
-                                                </Button>
-                                                <Button className='text-button pt-0 pb-0 mr-1 ml-1 mt-2'
-                                                    variant='none'
-                                                    style={{ backgroundColor: contactNode.type==='mobile' && `rgba(${primaryColorRGB}, .3)` }}
+                                                </TextContactButton>
+                                                <TextContactButton style={{ backgroundColor: contactNode.type==='mobile' && `rgba(${primaryColorRGB}, .3)` }}
                                                     onClick={() => {var contactCopy = contact; contactCopy[index].type = 'mobile'; contactCopy[index].lock = false; setState({ contact: contactCopy });}}>
                                                     <i style={{ color: 'black' }} className={`fas m-2 fa-lg fa-mobile mobile-${index}`}></i>
-                                                </Button>
-                                                <Button className='text-button pt-0 pb-0 mr-1 ml-1 mt-2'
-                                                    variant='none'
-                                                    style={{ backgroundColor: contactNode.type==='phone' && `rgba(${primaryColorRGB}, .3)` }}
+                                                </TextContactButton>
+                                                <TextContactButton style={{ backgroundColor: contactNode.type==='phone' && `rgba(${primaryColorRGB}, .3)` }}
                                                     onClick={() => {var contactCopy = contact; contactCopy[index].type = 'phone'; contactCopy[index].lock = false; setState({ contact: contactCopy });}}>
                                                     <i style={{ color: '#32C8f4' }} className={`fas m-2 fa-lg fa-phone phone-${index}`}></i>
-                                                </Button>
-                                                <Button className='text-button pt-0 pb-0 mr-1 ml-1 mt-2'
-                                                    variant='none'
-                                                    style={{ backgroundColor: contactNode.type==='envelope' && `rgba(${primaryColorRGB}, .3)` }}
+                                                </TextContactButton>
+                                                <TextContactButton style={{ backgroundColor: contactNode.type==='envelope' && `rgba(${primaryColorRGB}, .3)` }}
                                                     onClick={() => {var contactCopy = contact; contactCopy[index].type = 'envelope'; contactCopy[index].lock = false; setState({ contact: contactCopy });}}>
                                                     <i style={{ color: 'black' }} className={`fas m-2 fa-lg fa-envelope envelope-${index}`}></i>
-                                                </Button>
+                                                </TextContactButton>
                                             </Col>
                                             <Col sm={12} md={7}>
                                                 {contactNode.type === 'envelope' ?
