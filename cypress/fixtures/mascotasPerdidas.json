@@ -1,0 +1,41 @@
+{
+    "mascotaPerdidaCompleta": {
+        "name": "Lassie",
+        "specie": "Perro",
+        "sex": "macho",
+        "description": "Es un personaje de ficción que se empleó durante años en películas, series de televisión y libros de aventuras: se trata de una perra collie de la que se diría con el tiempo que era 'la perra más famosa del mundo'.",
+        "lastSeen": "2019-06-17",
+        "haveId": true,
+        "contact": [
+            {
+                "type": "whatsapp",
+                "content": "33 33 33 33 33"
+            },
+            {
+                "type": "phone",
+                "content": "33 33 33 33 33"
+            },
+            {
+                "type": "mobile",
+                "content": "33 33 33 33 33"
+            },
+            {
+                "type": "envelope",
+                "content": "diego@qapla.gg"
+            }
+        ]
+    },
+    "mascotaPerdidaCamposObligatorios": {
+        "name": "Lassie",
+        "specie": "Perro",
+        "description": "Es un personaje de ficción que se empleó durante años en películas, series de televisión y libros de aventuras: se trata de una perra collie de la que se diría con el tiempo que era 'la perra más famosa del mundo'.",
+        "lastSeen": "2019-06-17",
+        "contact": []
+    },
+    "mascotaPerdidaSinCamposObligatorios": {
+        "specie": "Perro",
+        "description": "Es un personaje de ficción que se empleó durante años en películas, series de televisión y libros de aventuras: se trata de una perra collie de la que se diría con el tiempo que era 'la perra más famosa del mundo'.",
+        "lastSeen": "2019-06-17",
+        "contact": []
+    }
+}

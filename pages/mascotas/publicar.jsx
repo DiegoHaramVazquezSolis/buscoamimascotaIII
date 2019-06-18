@@ -65,8 +65,8 @@ const Publicar = ({ pathname, user }) => {
         haveId: false,
         contact: [
             {
-                type: '',
-                content: '',
+                type: null,
+                content: null,
                 lock: true
             }
         ]
@@ -79,7 +79,6 @@ const Publicar = ({ pathname, user }) => {
     const [{name, specie, sex, description, location, lastSeen, haveId, contact}, setState] = useReducer(reducer, state);
 
     const [files, setFiles] = useState([]);
-    const [ progress, setProgress ] = useState(0);
     function removeImages() {
         const deleteImage = confirm('Deseas quitar las imagenes?');
         if (deleteImage) {
@@ -93,27 +92,36 @@ const Publicar = ({ pathname, user }) => {
 
     function onSubmit(e) {
         e.preventDefault();
-        var contactObject = {};
-        contact.map((contactNode, index) => {
-            contactObject[index] = contactNode;
-            contactObject[index].lock = null;
-        });
-        publishMascotaPerdida({ name, specie, sex, description, place: location.place, LatLng: location.LatLng, cp: location.cp, lastSeen, haveId, contact: contactObject, owner: user.uid })
-        .then((insertedData) => {
-            savePlaceOfPerdidaOnDatabase(location.place);
-            const storageRef = `/Perdidas/${name}-${insertedData.key}`;
-            uploadFileByReference(storageRef, files[0])
-            .on('state_changed', (snapshot) => {
-                setProgress(100/snapshot.bytesTransferred*snapshot.bytesTransferred);
-            }, (error) => {
-                alert('Hubo un error mientras se guardaba la imagen');
-                console.error(error);
-            }, () => {
-                getDownloadURLByReference(storageRef).then((url) => {
-                    updateMascotaPerdida(insertedData.key, { image: url });
+        if (files.length > 0) {
+            if (location.LatLng.latitude === 0 && location.LatLng.longitude === 0) {
+                alert('Selecciona la ubicacion donde desaparecio tu mascota o una ubicacion aproximada en el mapa');
+                return;
+            }
+            var contactObject = {};
+            contact.map((contactNode, index) => {
+                contactObject[index] = contactNode;
+                contactObject[index].lock = null;
+            });
+            publishMascotaPerdida({ name, specie, sex, description, place: location.place, LatLng: location.LatLng, cp: location.cp, lastSeen, haveId, contact: contactObject, owner: user.uid })
+            .then((insertedData) => {
+                savePlaceOfPerdidaOnDatabase(location.place);
+                const storageRef = `/Perdidas/${name}-${insertedData.key}`;
+                uploadFileByReference(storageRef, files[0])
+                .on('state_changed', (snapshot) => {
+                    //Mientras la imagen se publica
+                }, (error) => {
+                    alert('Hubo un error mientras se guardaba la imagen');
+                    console.error(error);
+                }, () => {
+                    getDownloadURLByReference(storageRef).then((url) => {
+                        updateMascotaPerdida(insertedData.key, { image: url });
+                    });
                 });
             });
-        });
+        } else {
+            alert('Es necesario que agregues una imagen de tu mascota');
+            return;
+        }
     }
 
     return (
@@ -144,7 +152,7 @@ const Publicar = ({ pathname, user }) => {
                         </Col>
                         <Col sm='12' md='4' className='mt-2'>
                             <FieldLabel>
-                            Especie
+                                Especie
                             </FieldLabel>
                             <SelectField className='family-open-sans' name='specie' value={specie} onChange={onChange}>
                                 <option className='family-open-sans' value='Perro'>Perro</option>
@@ -159,8 +167,8 @@ const Publicar = ({ pathname, user }) => {
                                 </FieldLabel>
                             </div>
                             <div className='form-check-inline'>
-                                <RadioButtonField label='Hembra' checked={sex === 'Hembra'} onChange={() => setState({ sex: 'Hembra' })} />
-                                <RadioButtonField label='Macho' checked={sex === 'Macho'} onChange={() => setState({ sex: 'Macho' })} />
+                                <RadioButtonField name='hembra' label='Hembra' checked={sex === 'Hembra'} onChange={() => setState({ sex: 'Hembra' })} />
+                                <RadioButtonField name='macho' label='Macho' checked={sex === 'Macho'} onChange={() => setState({ sex: 'Macho' })} />
                             </div>
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
@@ -256,7 +264,7 @@ const Publicar = ({ pathname, user }) => {
                                             <Col className='d-flex justify-content-center mb-2 mt-2' sm={12} md={5}>
                                                 <TextContactButton style={{ backgroundColor: contactNode.type==='whatsapp' && `rgba(${primaryColorRGB}, .3)` }}
                                                     onClick={() => {var contactCopy = contact; contactCopy[index].type = 'whatsapp'; contactCopy[index].lock = false; setState({ contact: contactCopy });}}>
-                                                    <i style={{ color: '#25D366' }}className={`fab m-2 fa-lg fa-whatsapp whatsapp-${index}`}></i>
+                                                    <i style={{ color: '#25D366' }} className={`fab m-2 fa-lg fa-whatsapp whatsapp-${index}`}></i>
                                                 </TextContactButton>
                                                 <TextContactButton style={{ backgroundColor: contactNode.type==='mobile' && `rgba(${primaryColorRGB}, .3)` }}
                                                     onClick={() => {var contactCopy = contact; contactCopy[index].type = 'mobile'; contactCopy[index].lock = false; setState({ contact: contactCopy });}}>
@@ -297,7 +305,7 @@ const Publicar = ({ pathname, user }) => {
                                 ))}
                                 <ListItem>
                                     <Button className='outlined-button mt-2 pt-0 pb-0'
-                                        onClick={() => { var contactCopy = contact; contactCopy.push({type: '', content: '', lock: true}); setState({ contact: contactCopy }); }}>
+                                        onClick={() => { var contactCopy = contact; contactCopy.push({type: null, content: null, lock: true}); setState({ contact: contactCopy }); }}>
                                         <TextForButtons>Agregar otro</TextForButtons>
                                     </Button>
                                 </ListItem>
