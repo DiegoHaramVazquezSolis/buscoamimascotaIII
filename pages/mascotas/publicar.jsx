@@ -24,6 +24,8 @@ import CheckBoxField from '../../components/simple/CheckBoxField';
 import List from '../../components/simple/List/List';
 import ListItem from '../../components/simple/List/ListItem';
 import { primaryColorRGB } from '../../components/styled/Constants';
+import { publishMascotaPerdida, savePlaceOfPerdidaOnDatabase, updateMascotaPerdida } from '../../firebase/database';
+import { uploadFileByReference, getDownloadURLByReference } from '../../firebase/storage';
 
 const InformationSectionTitle = ({ children }) => (
     <Row>
@@ -52,7 +54,7 @@ const TextContactButton = ({ children, style, onClick }) => (
     </Button>
 );
 
-const Publicar = ({ pathname }) => {
+const Publicar = ({ pathname, user }) => {
     const state = {
         name: '',
         specie: '',
@@ -77,12 +79,43 @@ const Publicar = ({ pathname }) => {
     const [{name, specie, sex, description, location, lastSeen, haveId, contact}, setState] = useReducer(reducer, state);
 
     const [files, setFiles] = useState([]);
+    const [ progress, setProgress ] = useState(0);
     function removeImages() {
         const deleteImage = confirm('Deseas quitar las imagenes?');
         if (deleteImage) {
             setFiles([]);
         }
     }
+
+    function onChange(e) {
+        setState({ [e.target.name]: e.target.value });
+    }
+
+    function onSubmit(e) {
+        e.preventDefault();
+        var contactObject = {};
+        contact.map((contactNode, index) => {
+            contactObject[index] = contactNode;
+            contactObject[index].lock = null;
+        });
+        publishMascotaPerdida({ name, specie, sex, description, place: location.place, LatLng: location.LatLng, cp: location.cp, lastSeen, haveId, contact: contactObject, owner: user.uid })
+        .then((insertedData) => {
+            savePlaceOfPerdidaOnDatabase(location.place);
+            const storageRef = `/Perdidas/${name}-${insertedData.key}`;
+            uploadFileByReference(storageRef, files[0])
+            .on('state_changed', (snapshot) => {
+                setProgress(100/snapshot.bytesTransferred*snapshot.bytesTransferred);
+            }, (error) => {
+                alert('Hubo un error mientras se guardaba la imagen');
+                console.error(error);
+            }, () => {
+                getDownloadURLByReference(storageRef).then((url) => {
+                    updateMascotaPerdida(insertedData.key, { image: url });
+                });
+            });
+        });
+    }
+
     return (
         <>
             <Head>
@@ -94,7 +127,7 @@ const Publicar = ({ pathname }) => {
                 <Subtitle1 className='text-muted mb-1'>
                     Para publicar a tu mascota desaparecida llena el siguiente formulario.
                 </Subtitle1>
-                <Form>
+                <Form onSubmit={onSubmit}>
                     <InformationSectionTitle>
                         Información sobre tu mascota
                     </InformationSectionTitle>
@@ -104,13 +137,16 @@ const Publicar = ({ pathname }) => {
                                 Nombre de tu mascota
                             </FieldLabel>
                             <InputField placeholder='Nombre de tu mascota'
-                                className='family-open-sans' />
+                                className='family-open-sans'
+                                name='name'
+                                value={name}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='4' className='mt-2'>
                             <FieldLabel>
                             Especie
                             </FieldLabel>
-                            <SelectField className='family-open-sans'>
+                            <SelectField className='family-open-sans' name='specie' value={specie} onChange={onChange}>
                                 <option className='family-open-sans' value='Perro'>Perro</option>
                                 <option className='family-open-sans' value='Gato'>Gato</option>
                                 <option className='family-open-sans' value='Otro'>Otro</option>
@@ -123,8 +159,8 @@ const Publicar = ({ pathname }) => {
                                 </FieldLabel>
                             </div>
                             <div className='form-check-inline'>
-                                <RadioButtonField label='Hembra' checked />
-                                <RadioButtonField label='Macho' />
+                                <RadioButtonField label='Hembra' checked={sex === 'Hembra'} onChange={() => setState({ sex: 'Hembra' })} />
+                                <RadioButtonField label='Macho' checked={sex === 'Macho'} onChange={() => setState({ sex: 'Macho' })} />
                             </div>
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
@@ -132,7 +168,10 @@ const Publicar = ({ pathname }) => {
                                 Descripción
                             </FieldLabel>
                             <TextAreaField placeholder='Descripción de tu mascota'
-                                rows='6' />
+                                rows='6'
+                                name='description'
+                                value={description}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
                             <FieldLabel>
@@ -187,7 +226,10 @@ const Publicar = ({ pathname }) => {
                             </FieldLabel>
                             <InputField placeholder='Fecha de la desaparición'
                                 type='date'
-                                className='family-open-sans' />
+                                className='family-open-sans'
+                                name='lastSeen'
+                                value={lastSeen}
+                                onChange={onChange} />
                         </Col>
                         <Col sm='12' md='6' className='mt-5 mb-3'>
                             <CheckBoxField
@@ -261,7 +303,7 @@ const Publicar = ({ pathname }) => {
                                 </ListItem>
                             </List>
                         </Col>
-                        <Col xl={12} className='mt-2 d-flex justify-content-end mb-3'>
+                        <Col xl='12' className='mt-2 d-flex justify-content-end mb-3'>
                             <Button className='raised-button'
                                 variant='none'
                                 type='submit'>
