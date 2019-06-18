@@ -35,6 +35,14 @@ const InformationSectionTitle = ({ children }) => (
     </Row>
 );
 
+const FieldLabel = ({ children }) => (
+    <Form.Label>
+        <Body1 className='mb-0'>
+            {children}
+        </Body1>
+    </Form.Label>
+);
+
 const Publicar = ({ pathname }) => {
     const state = {
         name: '',
@@ -83,20 +91,16 @@ const Publicar = ({ pathname }) => {
                     </InformationSectionTitle>
                     <Row className='ml-1'>
                         <Col sm='12' md='4' className='mt-2'>
-                            <Form.Label>
-                                <Body1 className='mb-0'>
-                                    Nombre de tu mascota
-                                </Body1>
-                            </Form.Label>
+                            <FieldLabel>
+                                Nombre de tu mascota
+                            </FieldLabel>
                             <InputField placeholder='Nombre de tu mascota'
                                 className='family-open-sans' />
                         </Col>
                         <Col sm='12' md='4' className='mt-2'>
-                            <Form.Label>
-                                <Body1 className='mb-0'>
-                                    Especie
-                                </Body1>
-                            </Form.Label>
+                            <FieldLabel>
+                            Especie
+                            </FieldLabel>
                             <SelectField className='family-open-sans'>
                                 <option className='family-open-sans' value='Perro'>Perro</option>
                                 <option className='family-open-sans' value='Gato'>Gato</option>
@@ -104,31 +108,27 @@ const Publicar = ({ pathname }) => {
                             </SelectField>
                         </Col>
                         <Col sm='12' md='4' className='mt-2'>
-                            <Form.Label className='d-block'>
-                                <Body1 className='mb-0'>
+                            <div className='d-block'>
+                                <FieldLabel>
                                     Sexo
-                                </Body1>
-                            </Form.Label>
+                                </FieldLabel>
+                            </div>
                             <div className='form-check-inline'>
                                 <RadioButtonField label='Hembra' checked />
                                 <RadioButtonField label='Macho' />
                             </div>
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
-                            <Form.Label className='d-block'>
-                                <Body1 className='mb-0'>
-                                    Descripción
-                                </Body1>
-                            </Form.Label>
+                            <FieldLabel>
+                                Descripción
+                            </FieldLabel>
                             <TextAreaField placeholder='Descripción de tu mascota'
                                 rows='6' />
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
-                            <Form.Label>
-                                <Body1 className='mb-0'>
-                                    Imagen de tu mascota
-                                </Body1>
-                            </Form.Label>
+                            <FieldLabel>
+                                Imagen de tu mascota
+                            </FieldLabel>
                             <DropZoneWithPreview files={files}
                                 removeImages={removeImages}
                                 setFiles={setFiles} />
@@ -173,11 +173,9 @@ const Publicar = ({ pathname }) => {
                                 onPointSelected={(cp, place, LatLng) => setState({ location: {cp, place, LatLng} })}/>
                         </Col>
                         <Col sm='12' md='6' className='mt-2'>
-                            <Form.Label>
-                                <Body1 className='mb-0'>
-                                    Fecha de la desaparición
-                                </Body1>
-                            </Form.Label>
+                            <FieldLabel>
+                                Fecha de la desaparición
+                            </FieldLabel>
                             <InputField placeholder='Fecha de la desaparición'
                                 type='date'
                                 className='family-open-sans' />
@@ -200,7 +198,9 @@ const Publicar = ({ pathname }) => {
                                     <ListItem>
                                         <Row>
                                             <Col xs='12'>
-                                                <Body1>Selecciona el medio de contacto</Body1>
+                                                <FieldLabel>
+                                                    Selecciona el medio de contacto
+                                                </FieldLabel>
                                             </Col>
                                             <Col className='d-flex justify-content-center mb-2 mt-2' sm={12} md={5}>
                                                 <Button className='text-button pt-0 pb-0 mr-1 ml-1 mt-2'
