@@ -25,6 +25,16 @@ import List from '../../components/simple/List/List';
 import ListItem from '../../components/simple/List/ListItem';
 import { primaryColorRGB } from '../../components/styled/Constants';
 
+const InformationSectionTitle = ({ children }) => (
+    <Row>
+        <Col xs='12' className='mt-2'>
+            <H5Styled>
+                {children}
+            </H5Styled>
+        </Col>
+    </Row>
+);
+
 const Publicar = ({ pathname }) => {
     const state = {
         name: '',
@@ -47,7 +57,7 @@ const Publicar = ({ pathname }) => {
         return {...prevState, ...state};
     }
 
-    const [{name, specie, sex, description, location, lastSeen, haveId, contact}, setState] = useReducer(reducer, state)
+    const [{name, specie, sex, description, location, lastSeen, haveId, contact}, setState] = useReducer(reducer, state);
 
     const [files, setFiles] = useState([]);
     function removeImages() {
@@ -68,13 +78,9 @@ const Publicar = ({ pathname }) => {
                     Para publicar a tu mascota desaparecida llena el siguiente formulario.
                 </Subtitle1>
                 <Form>
-                    <Row>
-                        <Col xs='12' className='mt-2'>
-                            <H5Styled>
-                                Información sobre tu mascota
-                            </H5Styled>
-                        </Col>
-                    </Row>
+                    <InformationSectionTitle>
+                        Información sobre tu mascota
+                    </InformationSectionTitle>
                     <Row className='ml-1'>
                         <Col sm='12' md='4' className='mt-2'>
                             <Form.Label>
@@ -128,13 +134,9 @@ const Publicar = ({ pathname }) => {
                                 setFiles={setFiles} />
                         </Col>
                     </Row>
-                    <Row>
-                        <Col xs='12' className='mt-2'>
-                            <H5Styled>
-                                Información sobre la desaparición
-                            </H5Styled>
-                        </Col>
-                    </Row>
+                    <InformationSectionTitle>
+                        Información sobre la desaparición
+                    </InformationSectionTitle>
                     <Row className='ml-1'>
                         <Col xs='12' className='mt-2'>
                             <Map
@@ -188,13 +190,9 @@ const Publicar = ({ pathname }) => {
                                 checked={haveId} />
                         </Col>
                     </Row>
-                    <Row>
-                        <Col xs='12' className='mt-2'>
-                            <H5Styled>
-                                Información de contacto
-                            </H5Styled>
-                        </Col>
-                    </Row>
+                    <InformationSectionTitle>
+                        Información de contacto
+                    </InformationSectionTitle>
                     <Row className='ml-1'>
                         <Col xs='10'>
                             <List>
