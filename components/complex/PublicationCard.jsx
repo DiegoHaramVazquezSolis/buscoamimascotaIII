@@ -7,7 +7,7 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 import TextForButtons from '../styled/TextForButtons';
 
-const PublicationCard = ({ image, date, name, description }) => {
+const PublicationCard = ({ image, date, name, description, onVerMasClick }) => {
     return (
         <Card className='mt-4'>
             <CardImage src={image} />
@@ -19,7 +19,7 @@ const PublicationCard = ({ image, date, name, description }) => {
                 </CardBody>
             </div>
             <ButtonToolbar className='mt-3 ml-auto'>
-                <Button className='text-button mb-3 ml-2' size='sm' variant='none'>
+                <Button className='text-button mb-3 ml-2' size='sm' variant='none' onClick={onVerMasClick}>
                     <TextForButtons>Ver mas</TextForButtons>
                 </Button>
                 <Button className='raised-button mb-3 ml-2' size='sm' variant='none'>
