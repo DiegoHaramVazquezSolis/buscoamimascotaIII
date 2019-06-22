@@ -25,7 +25,7 @@ const UserPublicationCard = ({ image, date, name, description }) => {
                 <Button className='raised-button mb-3 ml-3' size='sm' variant='none'>
                     <TextForButtons>Contactar</TextForButtons>
                 </Button>
-                <Button className='text-button mb-3 ml-3' size='sm' variant='none'>
+                <Button className='text-button mb-3 ml-2 mr-1' size='sm' variant='none'>
                     <i className='fas fa-share-alt fa-2x'></i>
                 </Button>
             </ButtonToolbar>
