@@ -80,7 +80,8 @@ const Perdidas = ({ pathname, user }) => {
                                 image={mascotasList[mascotaPerdidaKey].image || ''}
                                 name={mascotasList[mascotaPerdidaKey].name}
                                 date={mascotasList[mascotaPerdidaKey].lastSeen}
-                                onVerMasClick={() => {setSelectedMascotaId(mascotaPerdidaKey);setShowContact(true)}} />
+                                onVerMasClick={() => console.log('Ver mas')}
+                                onContactarClick={() => {setSelectedMascotaId(mascotaPerdidaKey);setShowContact(true)}} />
                         </Col>
                     ))}
                     {mascotasList[selectedMascotaId] &&
