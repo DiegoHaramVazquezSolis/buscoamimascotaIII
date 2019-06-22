@@ -7,7 +7,7 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 import TextForButtons from '../styled/TextForButtons';
 
-const PublicationCard = ({ image, date, name, description }) => {
+const UserPublicationCard = ({ image, date, name, description }) => {
     return (
         <Card className='mb-4'>
             <CardImage src={image} />
@@ -33,4 +33,4 @@ const PublicationCard = ({ image, date, name, description }) => {
     );
 }
 
-export default PublicationCard;
+export default UserPublicationCard;
