@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 
-const InputField = ({ name, value, type, placeholder, required, className, disabled, onChange }) => (
+const InputField = ({ name, value, type, placeholder, required, className, disabled, list, onChange }) => (
     <input id={name}
         type={type}
+        list={list ? list : null}
         placeholder={placeholder}
         required={required}
         className={`form-control ${className ? className : ''}`}
@@ -36,6 +37,7 @@ InputField.propTypes = {
     required: PropTypes.bool.isRequired,
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    list: PropTypes.string,
     onChange: PropTypes.func.isRequired
 };
 
