@@ -35,6 +35,7 @@ const Perdidas = ({ pathname, user }) => {
             if (error) {
                 console.log(error);
             }
+            return {};
         }));
     }
     return (
