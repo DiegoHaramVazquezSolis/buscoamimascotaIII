@@ -29,7 +29,7 @@ const ContactModal = ({ mascotaId, contact, centered, show, close }) => {
                                 return (
                                     <ListItem key={`contact-${mascotaId}-${contactKey}`}>
                                         <Button className='w-100 text-button' variant='none'>
-                                            <i className='fab fa-mobile fa-lg mr-3'></i>{`  ${localContact[contactKey].content}`}
+                                            <i className='fas fa-mobile fa-lg mr-3'></i>{`  ${localContact[contactKey].content}`}
                                         </Button>
                                     </ListItem>
                                 );
@@ -37,7 +37,7 @@ const ContactModal = ({ mascotaId, contact, centered, show, close }) => {
                                 return (
                                     <ListItem key={`contact-${mascotaId}-${contactKey}`}>
                                         <Button className='w-100 text-button' variant='none'>
-                                            <i className='fab fa-phone fa-lg mr-3'></i>{`  ${localContact[contactKey].content}`}
+                                            <i className='fas fa-phone fa-lg mr-3'></i>{`  ${localContact[contactKey].content}`}
                                         </Button>
                                     </ListItem>
                                 );
