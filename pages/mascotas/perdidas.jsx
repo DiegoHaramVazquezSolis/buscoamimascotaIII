@@ -14,8 +14,11 @@ import InputField from '../../components/simple/InputField';
 import Body2 from '../../components/styled/Body/Body2';
 import { getUserLocationBasedOnTheirIP } from '../../utilities';
 import { getPerdidasPlaces, loadMascotasPerdidasOnce } from '../../firebase/database';
+import ContactModal from '../../components/complex/ContactModal';
 
 const Perdidas = ({ pathname, user }) => {
+    const [ showContact, setShowContact ] = useState(false);
+    const [ selectedMascotaId, setSelectedMascotaId ] = useState('');
     const [ mascotasList, setMascotasList ] = useState({});
     const [ placesList, setPlacesList ] = useState({});
     const [ query, setQuery ] = useState('');
@@ -75,9 +78,16 @@ const Perdidas = ({ pathname, user }) => {
                             <PublicationCard description={mascotasList[mascotaPerdidaKey].description}
                                 image={mascotasList[mascotaPerdidaKey].image || ''}
                                 name={mascotasList[mascotaPerdidaKey].name}
-                                date={mascotasList[mascotaPerdidaKey].lastSeen} />
+                                date={mascotasList[mascotaPerdidaKey].lastSeen}
+                                onVerMasClick={() => {setSelectedMascotaId(mascotaPerdidaKey);setShowContact(true)}} />
                         </Col>
                     ))}
+                    {mascotasList[selectedMascotaId] &&
+                    <ContactModal show={showContact}
+                        contact={mascotasList[selectedMascotaId].contact}
+                        close={() => setShowContact(false)}
+                        mascotaId={selectedMascotaId} />
+                    }
                 </Row>
             </Container>
         </>
