@@ -15,8 +15,10 @@ import Body2 from '../../components/styled/Body/Body2';
 import { getUserLocationBasedOnTheirIP } from '../../utilities';
 import { getPerdidasPlaces, loadMascotasPerdidasOnce } from '../../firebase/database';
 import ContactModal from '../../components/complex/ContactModal';
+import PublicationDialog from '../../components/complex/PublicationDialog';
 
 const Perdidas = ({ pathname, user }) => {
+    const [ showPublicationDialog, setShowPublicationDialog ] = useState(false);
     const [ showContact, setShowContact ] = useState(false);
     const [ selectedMascotaId, setSelectedMascotaId ] = useState('');
     const [ mascotasList, setMascotasList ] = useState({});
@@ -80,7 +82,7 @@ const Perdidas = ({ pathname, user }) => {
                                 image={mascotasList[mascotaPerdidaKey].image || ''}
                                 name={mascotasList[mascotaPerdidaKey].name}
                                 date={mascotasList[mascotaPerdidaKey].lastSeen}
-                                onVerMasClick={() => console.log('Ver mas')}
+                                onVerMasClick={() => {setSelectedMascotaId(mascotaPerdidaKey);setShowPublicationDialog(true)}}
                                 onContactarClick={() => {setSelectedMascotaId(mascotaPerdidaKey);setShowContact(true)}} />
                         </Col>
                     ))}
@@ -92,6 +94,10 @@ const Perdidas = ({ pathname, user }) => {
                     }
                 </Row>
             </Container>
+            <PublicationDialog show={showPublicationDialog}
+                onContactarClick={() => setShowContact(true)}
+                close={() => setShowPublicationDialog(false)}
+                {...mascotasList[selectedMascotaId]} />
         </>
     );
 }
