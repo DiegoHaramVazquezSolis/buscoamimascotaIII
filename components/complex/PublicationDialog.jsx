@@ -11,6 +11,7 @@ import Body2 from '../styled/Body/Body2';
 import CheckBoxField from '../simple/CheckBoxField';
 import Map from './Map';
 import ModalBody from 'react-bootstrap/ModalBody';
+import CustomPublicationDialog from '../simple/Modal/CustomPublicationDialog';
 
 const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, onContactarClick, close }) => {
     return (
@@ -20,12 +21,17 @@ const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, 
                     <title>{name}</title>
                 </Head>
             }
-            <Modal show={show} size='xl' centered onHide={close}>
+            <CustomPublicationDialog show={show} size='xl' centered onHide={close} title='Mascota perdida'>
                 {show &&
                 <ModalBody className='mb-4'>
                     <Row>
                         <Col sm='12' md='4'>
-                            <div className='mascota-image'></div>
+                            <div className='mascota-image'
+                                style={{ 
+                                    width: '100%',
+                                    height: '300px',
+                                    background: `url(${image})`
+                                }}></div>
                             <div className='d-flex justify-content-center mt-3'>
                                 <Body1>Visto por ultima vez: {lastSeen}</Body1>
                             </div>
@@ -54,23 +60,22 @@ const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, 
                             </Body1>
                             <CheckBoxField  className='mt-2 mb-0' disabled checked={haveId} label='Tiene placa de identificación' />
                             <div className='ml-2'>
+                                {show &&
                                 <Map label='Zona de la desaparición'
                                     draggable={false}
                                     instructions={`Zona donde desaparecio ${name}`}
                                     initialPosition={{ latitude: LatLng.latitude, longitude: LatLng.longitude }} />
+                                }
                             </div>
                         </Col>
                     </Row>
                 </ModalBody>
                 }
-            </Modal>
+            </CustomPublicationDialog>
             <style jsx>{`
                 .mascota-image {
-                    background-image: url(${image});
-                    background-size:cover;
-                    background-position: center;
-                    height: 300px;
-                    width: 100%;
+                    background-size: cover !important;
+                    background-color: #C4C4C4 !important;
                     border-radius: 4px 4px 0 0;
                     background-color: rgb(196, 196, 196);
                 }
