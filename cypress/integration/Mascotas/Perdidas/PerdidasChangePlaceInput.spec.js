@@ -1,4 +1,4 @@
-describe('Publicar complete', function() {
+describe('Perdidas change search place', function() {
     beforeEach(() => {
         cy.fixture('mascotasPerdidas').as('publicar');
     });
