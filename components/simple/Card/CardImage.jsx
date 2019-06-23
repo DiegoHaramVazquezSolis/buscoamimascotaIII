@@ -21,7 +21,9 @@ const CardImage = ({ src }) => {
         </>
     );
 }
+
 CardImage.propTypes = {
     src: PropTypes.string.isRequired
 };
+
 export default CardImage;

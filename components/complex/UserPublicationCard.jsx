@@ -18,14 +18,14 @@ const UserPublicationCard = ({ image, date, name, description }) => {
                     {description.length > 183 ? `${description.substring(0, 184)}...` : description}
                 </CardBody>
             </div>
-            <ButtonToolbar className='mt-2 ml-auto'>
+            <ButtonToolbar className='mt-2'>
                 <Button className='text-button mb-3 ml-2' size='sm' variant='none'>
                     <TextForButtons>Ver mas</TextForButtons>
                 </Button>
-                <Button className='raised-button mb-3 ml-2' size='sm' variant='none'>
-                    <TextForButtons>Contactar</TextForButtons>
+                <Button className='raised-button mb-3 ml-3' size='sm' variant='none'>
+                    <TextForButtons>Modificar</TextForButtons>
                 </Button>
-                <Button className='text-button mb-3 ml-2 mr-2' size='sm' variant='none'>
+                <Button className='text-button mb-3 ml-3' size='sm' variant='none'>
                     <i className='fas fa-share-alt fa-2x'></i>
                 </Button>
             </ButtonToolbar>

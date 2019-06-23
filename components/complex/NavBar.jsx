@@ -1,14 +1,17 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import NavBarLink from '../simple/NavBarLinks/NavBarLink';
-import Button from 'react-bootstrap/Button';
 import TextForButtons from '../styled/TextForButtons';
 import Body1 from '../styled/Body/Body1';
 import NavBarDropdownLink from '../simple/NavBarLinks/NavBarDropdownLink';
 import { signOut } from '../../firebase/auth';
 
 const NavBar = ({ pathname, user }) => {
+    if (user == null) {
+        return (<h1>Cargando</h1>);
+    }
     return (
         <Navbar bg='light' expand='lg' className='shadow-sm pb-3 mb-4'>
             <Navbar.Brand href='#home' className='pl-2 pr-2 pt-2'>Busco a mi mascota</Navbar.Brand>
