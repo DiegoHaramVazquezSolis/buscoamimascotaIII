@@ -11,7 +11,7 @@ import Body2 from '../styled/Body/Body2';
 import CheckBoxField from '../simple/CheckBoxField';
 import Map from './Map';
 import ModalBody from 'react-bootstrap/ModalBody';
-import CustomPublicationDialog from '../simple/Modal/CustomPublicationDialog';
+import CustomDialog from '../simple/Modal/CustomDialog';
 
 const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, onContactarClick, close }) => {
     return (
@@ -21,7 +21,7 @@ const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, 
                     <title>{name}</title>
                 </Head>
             }
-            <CustomPublicationDialog show={show} size='xl' centered onHide={close} title='Mascota perdida'>
+            <CustomDialog show={show} size='xl' centered onHide={close} title='Mascota perdida'>
                 {show &&
                 <ModalBody className='mb-4'>
                     <Row>
@@ -71,7 +71,7 @@ const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, 
                     </Row>
                 </ModalBody>
                 }
-            </CustomPublicationDialog>
+            </CustomDialog>
             <style jsx>{`
                 .mascota-image {
                     background-size: cover !important;
