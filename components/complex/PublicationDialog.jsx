@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Body1 from '../styled/Body/Body1';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import Body1 from '../styled/Body/Body1';
 import TextForButtons from '../styled/TextForButtons';
-import Modal from 'react-bootstrap/Modal';
 import H4Styled from '../styled/Headline/H4Styled';
 import Body2 from '../styled/Body/Body2';
 import CheckBoxField from '../simple/CheckBoxField';
@@ -13,12 +12,12 @@ import Map from './Map';
 import ModalBody from 'react-bootstrap/ModalBody';
 import CustomDialog from '../simple/Modal/CustomDialog';
 
-const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, onContactarClick, close }) => {
+const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, mascotaId, onContactarClick, close }) => {
     return (
         <>
             {show &&
                 <Head>
-                    <title>{name}</title>
+                    <title>Ayudanos a encontrar a {name}</title>
                 </Head>
             }
             <CustomDialog show={show} size='xl' centered onHide={close} title='Mascota perdida'>
