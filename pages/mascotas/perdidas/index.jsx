@@ -96,8 +96,9 @@ const Perdidas = ({ pathname, user }) => {
             </Container>
             <PublicationDialog show={showPublicationDialog}
                 onContactarClick={() => setShowContact(true)}
-                close={() => setShowPublicationDialog(false)}
-                {...mascotasList[selectedMascotaId]} />
+                close={() => {setShowPublicationDialog(false); history.pushState(null, '', '/mascotas/perdidas')}}
+                {...mascotasList[selectedMascotaId]}
+                mascotaId={selectedMascotaId} />
         </>
     );
 }
