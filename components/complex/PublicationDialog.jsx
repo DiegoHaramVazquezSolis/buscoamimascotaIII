@@ -14,7 +14,7 @@ import CustomDialog from '../simple/Modal/CustomDialog';
 
 const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, mascotaId, onContactarClick, close }) => {
     if (show) {
-        history.pushState(null, '', `/mascotas/perdidas/${specie}/${name}/${mascotaId}`);
+        history.pushState(null, '', `/mascotas/perdidas/publicacion/${specie}/${name}/${mascotaId}`);
     }
     return (
         <>
