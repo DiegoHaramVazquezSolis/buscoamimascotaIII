@@ -70,3 +70,11 @@ export async function loadMascotasPerdidasOnce(place) {
         return Promise.reject({ errorLaunchedForVoidQuery: true });
     }
 }
+
+/**
+ * Returns an object with the data of the searched mascota based on their Id
+ * @param {string} mascotaId Id of the mascota to search
+ */
+export async function getMascotaPerdida(mascotaId) {
+    return await database.child('Perdidas').child(mascotaId).once('value').then((mascotaPerdida) => mascotaPerdida.val());
+}
