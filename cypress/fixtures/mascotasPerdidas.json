@@ -37,5 +37,8 @@
         "description": "Es un personaje de ficción que se empleó durante años en películas, series de televisión y libros de aventuras: se trata de una perra collie de la que se diría con el tiempo que era 'la perra más famosa del mundo'.",
         "lastSeen": "2019-06-17",
         "contact": []
+    },
+    "mascotaParaVerPerfil": {
+        "name": "Garfield"
     }
 }
