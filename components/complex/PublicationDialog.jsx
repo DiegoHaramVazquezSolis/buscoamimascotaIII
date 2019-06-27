@@ -1,27 +1,29 @@
 import Head from 'next/head';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Body1 from '../styled/Body/Body1';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import Body1 from '../styled/Body/Body1';
 import TextForButtons from '../styled/TextForButtons';
-import Modal from 'react-bootstrap/Modal';
 import H4Styled from '../styled/Headline/H4Styled';
 import Body2 from '../styled/Body/Body2';
 import CheckBoxField from '../simple/CheckBoxField';
 import Map from './Map';
 import ModalBody from 'react-bootstrap/ModalBody';
-import CustomPublicationDialog from '../simple/Modal/CustomPublicationDialog';
+import CustomDialog from '../simple/Modal/CustomDialog';
 
-const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, onContactarClick, close }) => {
+const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, sex, specie, LatLng, show, mascotaId, onContactarClick, close }) => {
+    if (show) {
+        history.pushState(null, '', `/mascotas/perdidas/publicacion/${specie}/${name}/${mascotaId}`);
+    }
     return (
         <>
             {show &&
                 <Head>
-                    <title>{name}</title>
+                    <title>Ayudanos a encontrar a {name}</title>
                 </Head>
             }
-            <CustomPublicationDialog show={show} size='xl' centered onHide={close} title='Mascota perdida'>
+            <CustomDialog show={show} size='xl' centered onHide={close} title='Mascota perdida'>
                 {show &&
                 <ModalBody className='mb-4'>
                     <Row>
@@ -71,7 +73,7 @@ const PublicationDialog = ({ name, description, image, lastSeen, haveId, place, 
                     </Row>
                 </ModalBody>
                 }
-            </CustomPublicationDialog>
+            </CustomDialog>
             <style jsx>{`
                 .mascota-image {
                     background-size: cover !important;

@@ -6,16 +6,16 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Row  from 'react-bootstrap/Row';
 import Col  from 'react-bootstrap/Col';
 import { useEffect, useState } from 'react';
-import PublicationCard from '../../components/complex/PublicationCard';
-import NavBar from '../../components/complex/NavBar';
-import H4Styled from '../../components/styled/Headline/H4Styled';
-import Subtitle1 from '../../components/styled/Subtitle/Subtitle1';
-import InputField from '../../components/simple/InputField';
-import Body2 from '../../components/styled/Body/Body2';
-import { getUserLocationBasedOnTheirIP } from '../../utilities';
-import { getPerdidasPlaces, loadMascotasPerdidasOnce } from '../../firebase/database';
-import ContactModal from '../../components/complex/ContactModal';
-import PublicationDialog from '../../components/complex/PublicationDialog';
+import PublicationCard from '../../../components/complex/PublicationCard';
+import NavBar from '../../../components/complex/NavBar';
+import H4Styled from '../../../components/styled/Headline/H4Styled';
+import Subtitle1 from '../../../components/styled/Subtitle/Subtitle1';
+import InputField from '../../../components/simple/InputField';
+import Body2 from '../../../components/styled/Body/Body2';
+import { getUserLocationBasedOnTheirIP } from '../../../utilities';
+import { getPerdidasPlaces, loadMascotasPerdidasOnce } from '../../../firebase/database';
+import ContactModal from '../../../components/complex/ContactModal';
+import PublicationDialog from '../../../components/complex/PublicationDialog';
 
 const Perdidas = ({ pathname, user }) => {
     const [ showPublicationDialog, setShowPublicationDialog ] = useState(false);
@@ -96,8 +96,9 @@ const Perdidas = ({ pathname, user }) => {
             </Container>
             <PublicationDialog show={showPublicationDialog}
                 onContactarClick={() => setShowContact(true)}
-                close={() => setShowPublicationDialog(false)}
-                {...mascotasList[selectedMascotaId]} />
+                close={() => {setShowPublicationDialog(false); history.pushState(null, '', '/mascotas/perdidas')}}
+                {...mascotasList[selectedMascotaId]}
+                mascotaId={selectedMascotaId} />
         </>
     );
 }

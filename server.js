@@ -12,6 +12,12 @@ app
   .then(() => {
     const server = express();
 
+    server.get('/mascotas/perdidas/publicacion/:specie/:name/:id', (req, res) => {
+      const actualPage = '/mascotas/perdidas/publicacion';
+      const queryParams = { mascotaId: req.params.id };
+      app.render(req, res, actualPage, queryParams);
+    });
+
     server.get('*', (req, res) => {
       return handle(req, res);
     });

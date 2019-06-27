@@ -1,5 +1,4 @@
-import { primaryColor } from "../../styled/Constants";
-import H5Styled from "../../styled/Headline/H5Styled";
+import { primaryColor } from '../../styled/Constants';
 
 class CustomPublicationDialog extends React.Component {
     constructor(props) {
